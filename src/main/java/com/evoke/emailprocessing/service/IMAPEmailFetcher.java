@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.mail.*;
 import javax.mail.internet.MimeMessage;
 import javax.mail.search.FlagTerm;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,7 +42,7 @@ public class IMAPEmailFetcher implements EmailFetcher {
         try {
 
             Properties properties = new Properties();
-            properties.put("mail.imap.host", "imap.host");
+            properties.put("mail.imap.host", "imap.gmail.com");
             properties.put("mail.imap.port", "993");
             properties.put("mail.imap.ssl.enable", "true");
             Session emailSession = Session.getInstance(properties);

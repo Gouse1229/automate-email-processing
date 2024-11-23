@@ -15,6 +15,7 @@ public class EmailUtils {
         if (content == null || content.isEmpty()) return "";
 
         String plainText = Jsoup.parse(content).text();
+        // TODO: Re-Access to remove some filters here to allow in NLP
         plainText = plainText.replaceAll("(?i)(\\n--\\n|\\nRegards.*|\\nSincerely.*|\\nThank you.*|\\nBest.*)", "");
         plainText = plainText.replaceAll("(?i)(^Dear .*?,|^Hi .*?,|^Hello,|To whom it may concern,)", "");
         plainText = plainText.replaceAll("https?://\\S+\\s?", "");

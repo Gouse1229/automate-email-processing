@@ -1,6 +1,7 @@
 package com.evoke.emailprocessing.service;
 
 import com.evoke.emailprocessing.model.Email;
+import com.evoke.emailprocessing.model.EmailCategorizer;
 import com.evoke.emailprocessing.util.EmailUtils;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,8 @@ public class EmailWorker {
     @RabbitListener(queues = "email.queue",concurrency = "5-10")
     public void processEmail(Email email) {
         String cleanedContent = EmailUtils.cleanEmailContent(email.getContent());
-        String category = transformerService.categorizeContent(cleanedContent);
+        EmailCategorizer emailCategorizer = new EmailCategorizer(email.getSubject(),email.getContent());
+        String category = transformerService.categorizeContent(emailCategorizer);
         email.setCategory(category);
         emailService.saveEmail(email);
 
