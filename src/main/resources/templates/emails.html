@@ -26,7 +26,7 @@
             <td th:text="${email.subject}">Subject</td>
             <td th:text="${email.category}">Category</td>
             <td th:text="${email.createdAt}">Sent Date</td>
-            <td th:text="${#strings.substring(email.content, 0, 100)}">Content</td>  <!-- Display the email content here -->
+            <td th:text="${email.content}">Content</td>  <!-- Display the email content here -->
         </tr>
         </tbody>
     </table>

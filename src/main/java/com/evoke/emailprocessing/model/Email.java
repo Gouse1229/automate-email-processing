@@ -19,7 +19,7 @@ public class Email {
     private String content;
 
     @Column(name = "created_at")
-    private Date date;
+    private Date createdAt;
     @Column(name = "message_id", unique = true)
     private String messageId;
 
@@ -64,12 +64,12 @@ public class Email {
         this.content = content;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getMessageId() {
@@ -94,7 +94,7 @@ public class Email {
                 "sender='" + sender + '\'' +
                 ", subject='" + subject + '\'' +
                 ", content='" + content + '\'' +
-                ", date='" + date + '\'' +
+                ", date='" + createdAt + '\'' +
                 ", messageId='" + messageId + '\'' +
                 '}';
     }

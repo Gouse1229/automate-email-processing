@@ -15,11 +15,15 @@ public class EmailService {
         this.emailRepository = emailRepository;
     }
 
-    public Email saveEmail(Email email) {
-        return emailRepository.save(email);
+    public void saveEmail(Email email) {
+        emailRepository.save(email);
     }
 
     public List<Email> getAllEmails() {
         return emailRepository.findAll();
+    }
+
+    public Email getEmailByMessageId(String messageId) {
+        return emailRepository.findByMessageId(messageId);
     }
 }

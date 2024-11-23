@@ -2,6 +2,7 @@ package com.evoke.emailprocessing.service;
 
 import com.evoke.emailprocessing.config.RabbitMQConfig;
 import com.evoke.emailprocessing.model.Email;
+import com.evoke.emailprocessing.util.EmailUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -22,18 +23,25 @@ public class IMAPEmailFetcher implements EmailFetcher {
 
     private final RabbitTemplate rabbitTemplate;
 
+    private final EmailService emailService;
+
     /**
      * Constructor for IMAPEmailFetcher.
      *
      * @param rabbitTemplate the RabbitTemplate for publishing messages to RabbitMQ.
+     * @param emailService the email service
      */
-    public IMAPEmailFetcher(RabbitTemplate rabbitTemplate) {
+    public IMAPEmailFetcher(RabbitTemplate rabbitTemplate, EmailService emailService) {
         this.rabbitTemplate = rabbitTemplate;
+        this.emailService = emailService;
     }
     @Value("${email.username}")
     private String user;
     @Value("${email.password}")
     private String password;
+
+    @Value("${email.host}")
+    private String host;
 
 
     @Override
@@ -42,13 +50,15 @@ public class IMAPEmailFetcher implements EmailFetcher {
         try {
 
             Properties properties = new Properties();
-            properties.put("mail.imap.host", "imap.gmail.com");
+            properties.put("mail.imap.host", host);
             properties.put("mail.imap.port", "993");
             properties.put("mail.imap.ssl.enable", "true");
+            properties.put("mail.imap.auth", "true");
             Session emailSession = Session.getInstance(properties);
+            emailSession.setDebug(true);
 
             Store store = emailSession.getStore("imap");
-            store.connect(user, password);
+            store.connect(host, user, password);
 
             Folder inbox = store.getFolder("INBOX");
             inbox.open(Folder.READ_WRITE);
@@ -69,9 +79,11 @@ public class IMAPEmailFetcher implements EmailFetcher {
                 email.setContent(content);
                 email.setMessageId(messageId);
                 email.setCategory("Uncategorized");
-                email.setDate(sentDate);
+                email.setCreatedAt(sentDate);
+                String cleanedContent = messageId+";"+subject + EmailUtils.cleanEmailContent(content);
+                emailService.saveEmail(email);
                 // Publish email to RabbitMQ
-                rabbitTemplate.convertAndSend(RabbitMQConfig.EMAIL_QUEUE, email);
+                rabbitTemplate.convertAndSend(RabbitMQConfig.EMAIL_QUEUE, cleanedContent);
 
                 // Mark email as read
                 message.setFlag(Flags.Flag.SEEN, true);
@@ -83,6 +95,7 @@ public class IMAPEmailFetcher implements EmailFetcher {
             store.close();
 
         } catch (Exception e) {
+            System.out.println(e);
             e.printStackTrace();
         }
         return emails;
