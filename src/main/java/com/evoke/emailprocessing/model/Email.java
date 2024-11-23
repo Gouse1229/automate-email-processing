@@ -1,18 +1,29 @@
 package com.evoke.emailprocessing.model;
 
-import java.io.Serializable;
-import java.util.List;
 
-public class Email implements Serializable {
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
+@Entity
+public class Email {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String sender;
 
     private String subject;
 
     private String content;
 
-    private String date;
-
+    @Column(name = "created_at")
+    private Date date;
+    @Column(name = "message_id", unique = true)
     private String messageId;
+
+    private String category;
 
     //TODO: added in future
 //    private List<String> recipients;
@@ -21,21 +32,12 @@ public class Email implements Serializable {
 //    private List<String> bcc;
 
 
-    /**
-     * Constructor for the Email class.
-     *
-     * @param sender    the sender's email address.
-     * @param subject   the email subject.
-     * @param content   the email content.
-     * @param messageId the unique message ID of the email.
-     * @param date      the date the email was received.
-     */
-    public Email(String sender, String subject, String content, String messageId, String date) {
-        this.sender = sender;
-        this.subject = subject;
-        this.content = content;
-        this.messageId = messageId;
-        this.date = date;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSender() {
@@ -62,11 +64,11 @@ public class Email implements Serializable {
         this.content = content;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -76,6 +78,14 @@ public class Email implements Serializable {
 
     public void setMessageId(String messageId) {
         this.messageId = messageId;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Override

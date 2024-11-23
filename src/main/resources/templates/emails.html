@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Emails</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mt-5">Email List</h1>
+    <table class="table table-striped mt-4">
+        <thead>
+        <tr>
+            <th>Sender</th>
+            <th>Subject</th>
+            <th>Category</th>
+            <th>Sent Date</th>
+            <th>Content</th>  <!-- New column for content -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through the emails and display them -->
+        <tr th:each="email : ${emails}">
+            <td th:text="${email.sender}">Sender</td>
+            <td th:text="${email.subject}">Subject</td>
+            <td th:text="${email.category}">Category</td>
+            <td th:text="${email.createdAt}">Sent Date</td>
+            <td th:text="${#strings.substring(email.content, 0, 100)}">Content</td>  <!-- Display the email content here -->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Bootstrap Modal for large content -->
+<!-- This modal will show the full email content when a user clicks a row -->
+<div class="modal fade" id="emailContentModal" tabindex="-1" aria-labelledby="emailContentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="emailContentModalLabel">Email Content</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="emailContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Add JavaScript to open the modal with content -->
+<script>
+    // Add event listener to table rows to show content in modal
+    const rows = document.querySelectorAll("table tbody tr");
+    rows.forEach(row => {
+        row.addEventListener("click", () => {
+            const content = row.querySelector("td:nth-child(5)").textContent;  // Content column
+            const modalContent = document.getElementById("emailContent");
+            modalContent.textContent = content;
+            $('#emailContentModal').modal('show');  // Show the modal
+        });
+    });
+</script>
+
+</body>
+</html>

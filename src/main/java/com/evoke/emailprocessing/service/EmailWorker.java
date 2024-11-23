@@ -13,13 +13,16 @@ public class EmailWorker {
 
     private final TransformerService transformerService;
 
+    private final EmailService emailService;
+
     /**
      * Constructor for EmailWorker.
      *
      * @param transformerService the TransformerService for categorizing email content.
      */
-    public EmailWorker(TransformerService transformerService) {
+    public EmailWorker(TransformerService transformerService, EmailService emailService) {
         this.transformerService = transformerService;
+        this.emailService= emailService;
     }
 
     /**
@@ -27,13 +30,15 @@ public class EmailWorker {
      *
      * @param email the email to process.
      */
-    @RabbitListener(queues = "email.queue")
+    @RabbitListener(queues = "email.queue",concurrency = "5-10")
     public void processEmail(Email email) {
         String cleanedContent = EmailUtils.cleanEmailContent(email.getContent());
         String category = transformerService.categorizeContent(cleanedContent);
+        email.setCategory(category);
+        emailService.saveEmail(email);
 
         System.out.println("Processed Email: " + email);
         System.out.println("Category: " + category);
-        // Save category to database or log
+
     }
 }
