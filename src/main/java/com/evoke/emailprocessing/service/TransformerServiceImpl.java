@@ -1,6 +1,5 @@
 package com.evoke.emailprocessing.service;
 
-import com.evoke.emailprocessing.model.EmailCategorizer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -9,7 +8,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,16 +17,15 @@ import java.util.Map;
 public class TransformerServiceImpl implements TransformerService {
 
     @Override
-    public String categorizeContent(EmailCategorizer emailCat) {
+    public String categorizeContent(String content) {
         RestTemplate restTemplate = new RestTemplate();
-        String FAST_API_URL = "http://127.0.0.1:8000/categorize";
+        String FAST_API_URL = "http://127.0.0.1:8000";
         String url = UriComponentsBuilder.fromHttpUrl(FAST_API_URL)
                 .path("/categorize")  // This is the endpoint in your FastAPI application
                 .toUriString();
 
         // You may send the email content as JSON payload
-        String jsonBody = "{\"subject\": \"" + emailCat.getSubject() +
-                "\", \"content\": \""+emailCat.getContent()+"\"}";
+        String jsonBody = "{ \"content\": \""+content+"\"}";
 
         // Set HTTP headers for JSON
         HttpHeaders headers = new HttpHeaders();

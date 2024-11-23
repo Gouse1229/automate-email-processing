@@ -6,6 +6,7 @@ import com.evoke.emailprocessing.service.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -28,9 +29,10 @@ public class EmailController {
     }
 
     @GetMapping("/process")
-    public void processEmails() {
+    public String processEmails() {
         System.out.println("Inside-Process: Fetching Emails");
         List<Email> emails =fetcher.fetchEmails();
         System.out.println("Fetched "+emails.size()+" emails");
+        return "index";
     }
 }

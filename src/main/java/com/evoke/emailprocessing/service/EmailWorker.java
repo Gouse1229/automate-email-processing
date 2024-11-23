@@ -1,8 +1,6 @@
 package com.evoke.emailprocessing.service;
 
 import com.evoke.emailprocessing.model.Email;
-import com.evoke.emailprocessing.model.EmailCategorizer;
-import com.evoke.emailprocessing.util.EmailUtils;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
@@ -29,18 +27,25 @@ public class EmailWorker {
     /**
      * Consumes emails from RabbitMQ and processes them.
      *
-     * @param email the email to process.
+     * @param emailContent the email to process.
      */
     @RabbitListener(queues = "email.queue",concurrency = "5-10")
-    public void processEmail(Email email) {
-        String cleanedContent = EmailUtils.cleanEmailContent(email.getContent());
-        EmailCategorizer emailCategorizer = new EmailCategorizer(email.getSubject(),email.getContent());
-        String category = transformerService.categorizeContent(emailCategorizer);
-        email.setCategory(category);
-        emailService.saveEmail(email);
+    public void processEmail(String emailContent) {
+        try{
+            String[] str = emailContent.split(">;",2);
+            String message_id = str[0]+">";
+            String category = transformerService.categorizeContent(str[1]);
 
-        System.out.println("Processed Email: " + email);
-        System.out.println("Category: " + category);
+            Email email = emailService.getEmailByMessageId(message_id);
+            email.setCategory(category);
+            emailService.saveEmail(email);
+
+            System.out.println("Processed Email: " + email);
+            System.out.println("Category: " + category);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 }
