@@ -35,4 +35,12 @@ public class EmailController {
         System.out.println("Fetched "+emails.size()+" emails");
         return "index";
     }
+
+    @GetMapping("/processOpenNlp")
+    public String processEmailsNlp() {
+        System.out.println("Inside-Process: Fetching Emails");
+        List<Email> emails =fetcher.fetchEmailsNlp();
+        System.out.println("Fetched "+emails.size()+" emails");
+        return "index";
+    }
 }

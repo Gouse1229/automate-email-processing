@@ -15,4 +15,6 @@ public interface EmailFetcher {
      * @return a list of new emails.
      */
     List<Email> fetchEmails();
+
+    List<Email> fetchEmailsNlp();
 }

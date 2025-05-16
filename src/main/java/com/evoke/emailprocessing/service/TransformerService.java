@@ -12,5 +12,6 @@ public interface TransformerService {
      * @return the category of the email.
      */
     String categorizeContent(String content);
+    String categorizeContentForOpenNlp(String content);
 }
 

@@ -35,6 +35,7 @@ public class EmailWorker {
             String[] str = emailContent.split(">;",2);
             String message_id = str[0]+">";
             String category = transformerService.categorizeContent(str[1]);
+//            String category = transformerService.categorizeContentForOpenNlp(str[1]);
 
             Email email = emailService.getEmailByMessageId(message_id);
             email.setCategory(category);

@@ -1,5 +1,6 @@
 package com.evoke.emailprocessing.service;
 
+import com.evoke.emailprocessing.nlp.CategorizeNLP;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,7 +20,7 @@ public class TransformerServiceImpl implements TransformerService {
     @Override
     public String categorizeContent(String content) {
         RestTemplate restTemplate = new RestTemplate();
-        String FAST_API_URL = "http://127.0.0.1:8000";
+        String FAST_API_URL = "http://127.0.0.1:8004";
         String url = UriComponentsBuilder.fromHttpUrl(FAST_API_URL)
                 .path("/categorize")  // This is the endpoint in your FastAPI application
                 .toUriString();
@@ -43,6 +44,22 @@ public class TransformerServiceImpl implements TransformerService {
             throw new RuntimeException("Failed to categorize email content. Status: " + response.getStatusCode());
         }
     }
+
+    @Override
+    public String categorizeContentForOpenNlp(String content) {
+
+        CategorizeNLP catgorize = new CategorizeNLP();
+        String response = "";
+        try {
+            response =catgorize.categorizeContent(content);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return response;
+    }
+
+
 
 //    private final String apiUrl = "https://api-inference.huggingface.co/models/your-model";
 //    private final String apiKey = "YOUR_HUGGINGFACE_API_KEY";
