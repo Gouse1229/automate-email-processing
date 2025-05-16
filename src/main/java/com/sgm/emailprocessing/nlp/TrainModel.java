@@ -1,4 +1,4 @@
-package com.evoke.emailprocessing.nlp;
+package com.sgm.emailprocessing.nlp;
 
 import opennlp.tools.doccat.*;
 import opennlp.tools.util.*;

@@ -1,4 +1,4 @@
-package com.evoke.emailprocessing.service;
+package com.sgm.emailprocessing.service;
 
 /**
  * Service for categorizing email content using Transformers.

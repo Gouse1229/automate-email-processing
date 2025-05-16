@@ -1,7 +1,7 @@
-package com.evoke.emailprocessing.service;
+package com.sgm.emailprocessing.service;
 
-import com.evoke.emailprocessing.model.Email;
-import com.evoke.emailprocessing.repository.EmailRepository;
+import com.sgm.emailprocessing.model.Email;
+import com.sgm.emailprocessing.repository.EmailRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

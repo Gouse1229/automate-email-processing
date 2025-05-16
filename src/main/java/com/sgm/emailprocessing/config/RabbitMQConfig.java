@@ -1,4 +1,4 @@
-package com.evoke.emailprocessing.config;
+package com.sgm.emailprocessing.config;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;

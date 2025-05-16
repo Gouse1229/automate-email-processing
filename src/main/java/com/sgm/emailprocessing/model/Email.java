@@ -1,4 +1,4 @@
-package com.evoke.emailprocessing.model;
+package com.sgm.emailprocessing.model;
 
 
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.evoke.emailprocessing;
+package com.sgm.emailprocessing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

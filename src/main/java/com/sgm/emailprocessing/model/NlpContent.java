@@ -1,4 +1,4 @@
-package com.evoke.emailprocessing.model;
+package com.sgm.emailprocessing.model;
 
 public class NlpContent {
     private String content;

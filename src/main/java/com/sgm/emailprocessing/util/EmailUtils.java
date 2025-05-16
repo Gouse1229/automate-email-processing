@@ -1,4 +1,4 @@
-package com.evoke.emailprocessing.util;
+package com.sgm.emailprocessing.util;
 import org.jsoup.Jsoup;
 /**
  * Utility methods for email processing.

@@ -1,6 +1,6 @@
-package com.evoke.emailprocessing.scheduler;
+package com.sgm.emailprocessing.scheduler;
 
-import com.evoke.emailprocessing.service.EmailFetcher;
+import com.sgm.emailprocessing.service.EmailFetcher;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
