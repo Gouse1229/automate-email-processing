@@ -1,6 +1,6 @@
-package com.evoke.emailprocessing.service;
+package com.sgm.emailprocessing.service;
 
-import com.evoke.emailprocessing.nlp.CategorizeNLP;
+import com.sgm.emailprocessing.nlp.CategorizeNLP;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

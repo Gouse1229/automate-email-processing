@@ -1,14 +1,13 @@
-package com.evoke.emailprocessing.controller;
+package com.sgm.emailprocessing.controller;
 
-import com.evoke.emailprocessing.model.NlpContent;
-import com.evoke.emailprocessing.nlp.CategorizeNLP;
-import com.evoke.emailprocessing.nlp.TrainModel;
+import com.sgm.emailprocessing.model.NlpContent;
+import com.sgm.emailprocessing.nlp.CategorizeNLP;
+import com.sgm.emailprocessing.nlp.TrainModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class NlpController {

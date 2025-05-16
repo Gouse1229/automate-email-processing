@@ -1,12 +1,11 @@
-package com.evoke.emailprocessing.controller;
+package com.sgm.emailprocessing.controller;
 
-import com.evoke.emailprocessing.model.Email;
-import com.evoke.emailprocessing.service.EmailFetcher;
-import com.evoke.emailprocessing.service.EmailService;
+import com.sgm.emailprocessing.model.Email;
+import com.sgm.emailprocessing.service.EmailFetcher;
+import com.sgm.emailprocessing.service.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

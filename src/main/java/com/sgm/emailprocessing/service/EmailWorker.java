@@ -1,6 +1,6 @@
-package com.evoke.emailprocessing.service;
+package com.sgm.emailprocessing.service;
 
-import com.evoke.emailprocessing.model.Email;
+import com.sgm.emailprocessing.model.Email;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 

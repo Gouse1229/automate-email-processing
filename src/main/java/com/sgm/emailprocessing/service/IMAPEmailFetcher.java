@@ -1,8 +1,8 @@
-package com.evoke.emailprocessing.service;
+package com.sgm.emailprocessing.service;
 
-import com.evoke.emailprocessing.config.RabbitMQConfig;
-import com.evoke.emailprocessing.model.Email;
-import com.evoke.emailprocessing.util.EmailUtils;
+import com.sgm.emailprocessing.config.RabbitMQConfig;
+import com.sgm.emailprocessing.model.Email;
+import com.sgm.emailprocessing.util.EmailUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
