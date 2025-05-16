@@ -15,7 +15,7 @@ public class CategorizeNLP {
 
     public String categorizeContent(String emailContent) throws Exception {
         // Load the trained model
-        InputStream modelIn = new ClassPathResource("nlpfiles/email-classifier-model.bin").getInputStream();
+        InputStream modelIn = new ClassPathResource("models/email-classifier-model.bin").getInputStream();
         DoccatModel doccatModel = new DoccatModel(modelIn);
 
         // Initialize the categorizer
